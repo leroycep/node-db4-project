@@ -43,6 +43,18 @@ server.get("/api/recipes/:id/instructions", (req, res) => {
     });
 });
 
+server.get("/api/ingredients/:id/recipes", (req, res) => {
+  model
+    .getRecipesByIngredient(req.params.id)
+    .then((recipes) => {
+      res.status(200).json(recipes);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Could not retrieve recipes" });
+    });
+});
+
 server.listen(PORT, () =>
   console.log(` == server listening on port ${PORT} == `)
 );
