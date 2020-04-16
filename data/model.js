@@ -13,6 +13,11 @@ function getRecipes() {
   return db("recipes").select();
 }
 
-function getShoppingList() {}
+function getShoppingList(recipe_id) {
+  return db("recipe_ingredients as ri")
+    .where({ recipe_id })
+    .join("ingredients as i", { "i.id": "ri.ingredient_id" })
+    .select("ri.id", "ri.amount as amount", "i.description");
+}
 
 function getInstructions() {}

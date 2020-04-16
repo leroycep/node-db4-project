@@ -19,6 +19,19 @@ server.get("/api/recipes", (req, res) => {
     });
 });
 
+server.get("/api/recipes/:id/shoppingList", (req, res) => {
+  model
+    .getShoppingList(req.params.id)
+    .then((ingredients) => {
+      res.status(200).json(ingredients);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Could not retrieve ingredients data" });
+    });
+});
+
+
 server.listen(PORT, () =>
   console.log(` == server listening on port ${PORT} == `)
 );
