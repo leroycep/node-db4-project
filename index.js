@@ -31,6 +31,17 @@ server.get("/api/recipes/:id/shoppingList", (req, res) => {
     });
 });
 
+server.get("/api/recipes/:id/instructions", (req, res) => {
+  model
+    .getInstructions(req.params.id)
+    .then((instructions) => {
+      res.status(200).json(instructions);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Could not retrieve instructions" });
+    });
+});
 
 server.listen(PORT, () =>
   console.log(` == server listening on port ${PORT} == `)

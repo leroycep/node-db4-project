@@ -20,4 +20,9 @@ function getShoppingList(recipe_id) {
     .select("ri.id", "ri.amount as amount", "i.description");
 }
 
-function getInstructions() {}
+function getInstructions(recipe_id) {
+  return db("recipe_steps")
+    .where({ recipe_id })
+    .select("number", "description")
+    .orderBy("number");
+}
